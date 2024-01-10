@@ -41,26 +41,26 @@ class KeyAutomation
     {
         Console.WriteLine("Начало работы скрипта...");
 
-        Console.WriteLine("Введите имя пользователя:");
-        string userName = Console.ReadLine();
+        //Console.WriteLine("Введите имя пользователя:");
+        //string userName = Console.ReadLine();
 
         string keyFilePath, resultFilePath, chromeDriverPath, chromePath;
 
-        if (userName == "Mos")
-        {
+        //if (userName == "Mos")
+        //{
             keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
             resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
             chromeDriverPath = @"C:\Users\Moskovchenko\Desktop\Steam apruver\Steam-key-approver\";
             chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
-        }
-        else
-        {
-            // Здесь указывайте альтернативные пути для других компьютеров
-            keyFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\keys.txt";
-            resultFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\results.txt";
-            chromeDriverPath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\";
-            chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Указать путь к исполняемому файлу Chrome
-        }
+        //}
+        //else
+        //{
+        //    // Здесь указывайте альтернативные пути для других компьютеров
+        //    keyFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\keys.txt";
+        //    resultFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\results.txt";
+        //    chromeDriverPath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\";
+        //    chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Указать путь к исполняемому файлу Chrome
+        //}
 
         // Запуск Chrome с удаленной отладкой
         int debugPort = 9222; // Порт для отладки
