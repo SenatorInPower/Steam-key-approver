@@ -68,6 +68,25 @@ class KeyAutomation
 
         // Настройка и запуск WebDriver
         ChromeDriverService service = ChromeDriverService.CreateDefaultService(chromeDriverPath);
+
+        try
+        {
+            var chromeDriverVersionInfo = Process.Start(new ProcessStartInfo
+            {
+                FileName = Path.Combine(chromeDriverPath, "chromedriver.exe"),
+                Arguments = "--version",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
+            });
+
+            Console.WriteLine("Версия ChromeDriver: " + chromeDriverVersionInfo.StandardOutput.ReadToEnd());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Не удалось получить версию ChromeDriver: " + ex.Message);
+        }
+
         ChromeOptions options = new ChromeOptions();
         options.DebuggerAddress = $"localhost:{debugPort}";
         IWebDriver driver = new ChromeDriver(service, options);
