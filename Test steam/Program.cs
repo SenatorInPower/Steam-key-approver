@@ -50,7 +50,7 @@ class KeyAutomation
         {
             keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
             resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
-            chromeDriverPath = @"C:\chromedriver\";
+            chromeDriverPath = @"C:\Users\Moskovchenko\Desktop\Steam apruver\Steam-key-approver\";
             chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
         }
         else
