@@ -1,0 +1,22 @@
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\selenium-manager\linux\selenium-manager
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\selenium-manager\macos\selenium-manager
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\selenium-manager\windows\selenium-manager.exe
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Test steam.exe
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Test steam.deps.json
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Test steam.runtimeconfig.json
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Test steam.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Test steam.pdb
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\WebDriver.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.AssemblyInfoInputs.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.AssemblyInfo.cs
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.csproj.CopyComplete
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\refint\Test steam.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.pdb
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.genruntimeconfig.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\ref\Test steam.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\SeleniumExtras.WaitHelpers.dll
