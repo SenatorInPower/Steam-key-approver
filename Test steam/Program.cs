@@ -32,41 +32,45 @@ class KeyAutomation
             return false;
         }
     }
-    public static void StartChromeWithDebugging(int port)
+    public static void StartChromeWithDebugging(int port, string chromePath)
     {
-        Process.Start(@"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", $"--remote-debugging-port={port}");
+        Process.Start(chromePath, $"--remote-debugging-port={port}");
     }
 
     static void Main()
     {
         Console.WriteLine("Начало работы скрипта...");
 
-        var keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
-        var resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
+        Console.WriteLine("Введите имя пользователя:");
+        string userName = Console.ReadLine();
 
-        Console.WriteLine("Начало работы скрипта...");
+        string keyFilePath, resultFilePath, chromeDriverPath, chromePath;
 
-        // Путь к файлу chromedriver.exe
-        var chromeDriverPath = @"C:\chromedriver\";
+        if (userName == "Mos")
+        {
+            keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
+            resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
+            chromeDriverPath = @"C:\chromedriver\";
+            chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+        }
+        else
+        {
+            // Здесь указывайте альтернативные пути для других компьютеров
+            keyFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\keys.txt";
+            resultFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\results.txt";
+            chromeDriverPath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\";
+            chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Указать путь к исполняемому файлу Chrome
+        }
 
-        // Создание ChromeDriverService с указанным путем к chromedriver.exe
+        // Запуск Chrome с удаленной отладкой
+        int debugPort = 9222; // Порт для отладки
+        StartChromeWithDebugging(debugPort, chromePath);
+
+        // Настройка и запуск WebDriver
         ChromeDriverService service = ChromeDriverService.CreateDefaultService(chromeDriverPath);
-
-        Console.WriteLine("Настройка параметров Chrome...");
         ChromeOptions options = new ChromeOptions();
-        options.DebuggerAddress = "localhost:9222";  // Подключение к уже открытому браузеру
-        IWebDriver driver=null;
-        try
-        {
-            Console.WriteLine("Создание экземпляра ChromeDriver...");
-             driver = new ChromeDriver(service, options);
-            Console.WriteLine("Экземпляр ChromeDriver успешно создан.");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Ошибка при создании экземпляра ChromeDriver: " + e.Message);
-            return;
-        }
+        options.DebuggerAddress = $"localhost:{debugPort}";
+        IWebDriver driver = new ChromeDriver(service, options);
 
 
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
