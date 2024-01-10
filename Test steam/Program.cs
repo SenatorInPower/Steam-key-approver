@@ -43,41 +43,20 @@ class KeyAutomation
 
     static void Main()
     {
-        int freePort = FindFreePort();
-        StartChromeWithDebugging(freePort);
-
-        // Дайте немного времени Chrome для запуска
-        Thread.Sleep(3000); // Можно увеличить, если требуется больше времени для запуска
-
         var keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
         var resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
 
         ChromeOptions options = new ChromeOptions();
-        options.DebuggerAddress = $"localhost:{freePort}";
+        options.DebuggerAddress = "localhost:9222";  // Подключение к уже открытому браузеру
         IWebDriver driver = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
 
         string initialUrl = "https://partner.steamgames.com/querycdkey/";
         List<string> keys = new List<string>(File.ReadAllLines(keyFilePath));
         List<string> results = new List<string>();
 
-        bool pageFound = false;
-        foreach (var handle in driver.WindowHandles)
-        {
-            driver.SwitchTo().Window(handle);
-            if (driver.Title.Contains("Ожидаемое название страницы") || driver.Url.Contains(initialUrl))
-            {
-                pageFound = true;
-                break; // Найдена нужная вкладка
-            }
-        }
-
-        if (!pageFound)
-        {
-            Console.WriteLine("Не удалось найти нужную страницу.");
-            return;
-        }
+        // Переключение на первую вкладку
+        driver.SwitchTo().Window(driver.WindowHandles[0]);
 
         foreach (var key in keys)
         {
@@ -112,7 +91,7 @@ class KeyAutomation
                 Console.WriteLine($"WebDriver error: {e.Message}");
                 results.Add($"{key}: WebDriver error.");
             }
-            Thread.Sleep(1000); // For visual control, can be removed in production code
+            Thread.Sleep(1000); // Для визуального контроля, можно убрать в продакшен-версии
         }
 
         driver.Quit();
