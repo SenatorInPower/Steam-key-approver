@@ -55,7 +55,19 @@ class KeyAutomation
         Console.WriteLine("Настройка параметров Chrome...");
         ChromeOptions options = new ChromeOptions();
         options.DebuggerAddress = "localhost:9222";  // Подключение к уже открытому браузеру
-        IWebDriver driver = new ChromeDriver(service, options);
+        IWebDriver driver=null;
+        try
+        {
+            Console.WriteLine("Создание экземпляра ChromeDriver...");
+             driver = new ChromeDriver(service, options);
+            Console.WriteLine("Экземпляр ChromeDriver успешно создан.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Ошибка при создании экземпляра ChromeDriver: " + e.Message);
+            return;
+        }
+
 
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
