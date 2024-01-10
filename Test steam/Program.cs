@@ -94,8 +94,8 @@ class KeyAutomation
 
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-        Console.WriteLine("Введите URL для анализа:");
-        string urlForAnalysis = Console.ReadLine(); // Чтение URL из консоли
+     //   Console.WriteLine("Введите URL для анализа:");
+        string urlForAnalysis = "https://partner.steamgames.com/querycdkey/cdkey?cdkey=&method=Query"; // Чтение URL из консоли
 
         // Используйте urlForAnalysis вместо initialUrl для загрузки страницы
         driver.Navigate().GoToUrl(urlForAnalysis);
