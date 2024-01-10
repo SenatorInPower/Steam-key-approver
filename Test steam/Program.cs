@@ -44,10 +44,19 @@ class KeyAutomation
         var keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
         var resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
 
+        Console.WriteLine("Начало работы скрипта...");
+
+        // Путь к файлу chromedriver.exe
+        var chromeDriverPath = @"C:\chromedriver\";
+
+        // Создание ChromeDriverService с указанным путем к chromedriver.exe
+        ChromeDriverService service = ChromeDriverService.CreateDefaultService(chromeDriverPath);
+
         Console.WriteLine("Настройка параметров Chrome...");
         ChromeOptions options = new ChromeOptions();
         options.DebuggerAddress = "localhost:9222";  // Подключение к уже открытому браузеру
-        IWebDriver driver = new ChromeDriver(options);
+        IWebDriver driver = new ChromeDriver(service, options);
+
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
         Console.WriteLine("Введите URL для анализа:");
