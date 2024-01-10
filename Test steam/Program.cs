@@ -50,7 +50,12 @@ class KeyAutomation
         IWebDriver driver = new ChromeDriver(options);
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-        string initialUrl = "https://partner.steamgames.com/querycdkey/";
+        Console.WriteLine("Введите URL для анализа:");
+        string urlForAnalysis = Console.ReadLine(); // Чтение URL из консоли
+
+        // Используйте urlForAnalysis вместо initialUrl для загрузки страницы
+        driver.Navigate().GoToUrl(urlForAnalysis);
+
         List<string> keys = new List<string>(File.ReadAllLines(keyFilePath));
         List<string> results = new List<string>();
 
@@ -62,7 +67,7 @@ class KeyAutomation
             try
             {
                 Console.WriteLine($"Обработка ключа: {key}");
-                driver.Navigate().GoToUrl(initialUrl);
+                driver.Navigate().GoToUrl(urlForAnalysis);
                 Console.WriteLine("Страница загружена.");
 
                 IWebElement inputElement = wait.Until(ExpectedConditions.ElementIsVisible(By.Name("cdkey")));
