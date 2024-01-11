@@ -91,13 +91,10 @@ class KeyAutomation
         options.DebuggerAddress = $"localhost:{debugPort}";
         IWebDriver driver = new ChromeDriver(service, options);
 
-
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
-     //   Console.WriteLine("Введите URL для анализа:");
-        string urlForAnalysis = "https://partner.steamgames.com/querycdkey/cdkey?cdkey=&method=Query"; // Чтение URL из консоли
+        string urlForAnalysis = "https://partner.steamgames.com/querycdkey/cdkey?cdkey=&method=Query";
 
-        // Используйте urlForAnalysis вместо initialUrl для загрузки страницы
         driver.Navigate().GoToUrl(urlForAnalysis);
 
         List<string> keys = new List<string>(File.ReadAllLines(keyFilePath));
@@ -122,14 +119,21 @@ class KeyAutomation
                 sendButton.Click();
                 Console.WriteLine("Запрос отправлен.");
 
-                wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("span[style='color: #e24044']")));
-                string activationStatus = driver.FindElement(By.CssSelector("span[style='color: #e24044']")).Text;
+                // Ожидаем появление статуса активации и получаем его текст
+                string activationStatus = wait.Until(d =>
+                {
+                    var element = d.FindElement(By.CssSelector("span[style='color: #e24044'], span[style='color: #67c1f5']"));
+                    return element.Displayed && element.Text.Length > 0 ? element.Text : null;
+                });
 
-                string gameTitle = driver.FindElement(By.CssSelector("a[href*='packagelanding']")).Text;
+                // Получаем название игры и ID пакета из URL
+                string gameTitle = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[href*='packagelanding']"))).Text;
                 string packageId = driver.FindElement(By.CssSelector("a[href*='packagelanding']")).GetAttribute("href");
 
+                // Получаем временную метку активации
                 string timeStamp = driver.FindElement(By.XPath("//td[contains(text(),'GMT')]")).Text;
 
+                // Формируем результат
                 string result = $"{key}: {activationStatus}, {gameTitle}, {packageId}, {timeStamp}";
                 Console.WriteLine($"Результат: {result}");
                 results.Add(result);
@@ -155,5 +159,4 @@ class KeyAutomation
 
         Console.WriteLine("Работа скрипта завершена.");
     }
-
 }
