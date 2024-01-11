@@ -20,3 +20,10 @@ C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\D
 C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\Test steam.genruntimeconfig.cache
 C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\obj\Debug\net6.0\ref\Test steam.dll
 C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\SeleniumExtras.WaitHelpers.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\ClosedXML.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\ExcelNumberFormat.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\Irony.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\SixLabors.Fonts.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\System.IO.Packaging.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Test steam\bin\Debug\net6.0\XLParser.dll

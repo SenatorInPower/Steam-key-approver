@@ -1,11 +1,11 @@
-﻿using OpenQA.Selenium;
+﻿using ClosedXML.Excel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
-
 class KeyAutomation
 {
     public static int FindFreePort()
@@ -41,26 +41,31 @@ class KeyAutomation
     {
         Console.WriteLine("Начало работы скрипта...");
 
-        //Console.WriteLine("Введите имя пользователя:");
-        //string userName = Console.ReadLine();
+        // Получение пути к рабочему столу пользователя
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-        string keyFilePath, resultFilePath, chromeDriverPath, chromePath;
+        // Определение путей к файлам на рабочем столе пользователя
+        string keyFilePath = Path.Combine(desktopPath, "keys.txt");
+        string resultFilePath = Path.Combine(desktopPath, "results.xlsx");
+        string chromeDriverPath = Path.Combine(desktopPath, "Steam apruver", "Steam-key-approver");
 
-        //if (userName == "Mos")
-        //{
-            keyFilePath = @"C:\Users\Moskovchenko\Desktop\keys.txt";
-            resultFilePath = @"C:\Users\Moskovchenko\Desktop\results.txt";
-            chromeDriverPath = @"C:\Users\Moskovchenko\Desktop\Steam apruver\Steam-key-approver\";
-            chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
-        //}
-        //else
-        //{
-        //    // Здесь указывайте альтернативные пути для других компьютеров
-        //    keyFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\keys.txt";
-        //    resultFilePath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\results.txt";
-        //    chromeDriverPath = @"C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\";
-        //    chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe"; // Указать путь к исполняемому файлу Chrome
-        //}
+        // Поиск исполняемого файла Chrome
+        string chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+        if (!File.Exists(chromePath))
+        {
+            chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+            if (!File.Exists(chromePath))
+            {
+                // Если файл не найден в стандартных путях, ищем в системе
+                chromePath = FindChromeExecutablePath();
+                if (chromePath == null)
+                {
+                    Console.WriteLine("Не удалось найти исполняемый файл Chrome.");
+                    return; // Завершаем выполнение, если Chrome не найден
+                }
+            }
+        }
+
 
         // Запуск Chrome с удаленной отладкой
         int debugPort = 9222; // Порт для отладки
@@ -103,6 +108,36 @@ class KeyAutomation
         Console.WriteLine("Переключение на первую вкладку браузера...");
         driver.SwitchTo().Window(driver.WindowHandles[0]);
 
+
+        // Создаем новую книгу или загружаем существующую
+        XLWorkbook workbook;
+        if (File.Exists(resultFilePath))
+        {
+            // Загрузить существующую книгу
+            workbook = new XLWorkbook(resultFilePath);
+        }
+        else
+        {
+            // Создать новую книгу и лист
+            workbook = new XLWorkbook();
+            workbook.Worksheets.Add("Results");
+        }
+
+        // Получение или создание листа "Results"
+        IXLWorksheet worksheet = workbook.Worksheet("Results");
+        // Если лист новый, добавляем заголовки
+        if (worksheet.LastRowUsed() == null)
+        {
+            worksheet.Cell("A1").Value = "Key";
+            worksheet.Cell("B1").Value = "Status";
+            worksheet.Cell("C1").Value = "Time Activation";
+            worksheet.Cell("D1").Value = "Package";
+            worksheet.Cell("E1").Value = "Tag";
+        }
+
+        int currentRow = worksheet.LastRowUsed()?.RowNumber() + 1 ?? 2; // Если лист пуст, начинаем с 2 строки
+
+
         foreach (var key in keys)
         {
             try
@@ -137,6 +172,15 @@ class KeyAutomation
                 string result = $"{key}: {activationStatus}, {gameTitle}, {packageId}, {timeStamp}";
                 Console.WriteLine($"Результат: {result}");
                 results.Add(result);
+
+                // Записываем результаты в строку таблицы
+                worksheet.Cell(currentRow, 1).Value = key;
+                worksheet.Cell(currentRow, 2).Value = activationStatus;
+                worksheet.Cell(currentRow, 3).Value = timeStamp;
+                worksheet.Cell(currentRow, 4).Value = gameTitle;
+                worksheet.Cell(currentRow, 5).Value = packageId; // Или другой способ получения Tag
+
+                currentRow++;
             }
             catch (NoSuchElementException e)
             {
@@ -157,6 +201,44 @@ class KeyAutomation
         Console.WriteLine("Сохранение результатов...");
         File.WriteAllLines(resultFilePath, results);
 
+        // Сохраняем таблицу в файл
+        workbook.SaveAs(resultFilePath);
+
+        Console.WriteLine("Результаты сохранены в Excel файл.");
+
         Console.WriteLine("Работа скрипта завершена.");
+
+
+    }
+
+    private static string FindChromeExecutablePath()
+    {
+        // Места, где обычно установлен Chrome
+        string[] possiblePaths = {
+            @"C:\Program Files\Google\Chrome\Application\chrome.exe",
+            @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+            // Добавьте дополнительные пути, если требуется
+        };
+
+        foreach (var path in possiblePaths)
+        {
+            if (File.Exists(path))
+                return path;
+        }
+
+        // Ищем Chrome в реестре
+        string keyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe";
+        using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(keyPath))
+        {
+            if (key != null)
+            {
+                var path = key.GetValue(null) as string; // Получаем (по умолчанию) значение
+                if (File.Exists(path))
+                    return path;
+            }
+        }
+
+        // Chrome не найден
+        return null;
     }
 }
