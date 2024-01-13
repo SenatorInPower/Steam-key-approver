@@ -1,0 +1,29 @@
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\selenium-manager\linux\selenium-manager
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\selenium-manager\macos\selenium-manager
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\selenium-manager\windows\selenium-manager.exe
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Steam key checker.exe
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Steam key checker.deps.json
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Steam key checker.runtimeconfig.json
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Steam key checker.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Steam key checker.pdb
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\ClosedXML.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\ExcelNumberFormat.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Irony.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\WebDriver.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\SeleniumExtras.WaitHelpers.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\SixLabors.Fonts.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\System.IO.Packaging.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\bin\Debug\net6.0\XLParser.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.AssemblyInfoInputs.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.AssemblyInfo.cs
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.csproj.CopyComplete
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\refint\Steam key checker.dll
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.pdb
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\Steam key checker.genruntimeconfig.cache
+C:\Users\DELL\Desktop\ToolsMechaLearn\Site\Test Site\Test steam\Steam key checker\obj\Debug\net6.0\ref\Steam key checker.dll
