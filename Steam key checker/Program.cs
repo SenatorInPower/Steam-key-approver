@@ -68,10 +68,10 @@ class KeyAutomation
             // Handle the case where ChromeDriver is not found...
         }
         // Поиск исполняемого файла Chrome
-        string chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
+        string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
         if (!File.Exists(chromePath))
         {
-            chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+            chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
             if (!File.Exists(chromePath))
             {
                 // Если файл не найден в стандартных путях, ищем в системе
