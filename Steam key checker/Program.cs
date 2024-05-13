@@ -261,7 +261,7 @@ class KeyAutomation
                         processedKeyCount++;
 
                         // Проверяем, достигли ли мы 100 обработанных ключей
-                        if (processedKeyCount >= 100)
+                        if (processedKeyCount >= 4)
                         {
                             // Сохраняем таблицу в файл и очищаем результаты
                             workbook.SaveAs(resultFilePath);
