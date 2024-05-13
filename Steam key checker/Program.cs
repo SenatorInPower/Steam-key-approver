@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 
+
 class KeyAutomation
 {
     public static int FindFreePort()
@@ -99,6 +100,7 @@ class KeyAutomation
             // Здесь ваш код, который использует chromePath
         }
 
+
         //@"C:\Program Files\Google\Chrome\Application\chrome.exe";
         if (!File.Exists(chromePath))
         {
@@ -145,7 +147,7 @@ class KeyAutomation
         options.AddArgument("--disable-extensions");
         options.AddArgument("--disable-gpu");
         options.AddArgument("--no-sandbox");
-        options.AddArgument("--headless");
+        //  options.AddArgument("--headless");
 
         options.DebuggerAddress = $"localhost:{debugPort}";
 
@@ -202,11 +204,13 @@ class KeyAutomation
 
         int currentRow = worksheet.LastRowUsed()?.RowNumber() + 1 ?? 2; // Если лист пуст, начинаем с 2 строки
 
-
-        foreach (var key in keys)
+        int lastProcessedKeyIndex = -1;
+        try
         {
-            try
+
+            foreach (var key in keys)
             {
+
                 Console.WriteLine($"Обработка ключа: {key}");
                 driver.Navigate().GoToUrl(urlForAnalysis);
                 Console.WriteLine("Страница загружена.");
@@ -246,32 +250,51 @@ class KeyAutomation
                 worksheet.Cell(currentRow, 5).Value = packageId; // Или другой способ получения Tag
 
                 currentRow++;
+
+
+
+                //catch (NoSuchElementException e)
+                //{
+                //    Console.WriteLine($"Element not found: {e.Message}");
+                //    results.Add($"{key}: Element not found.");
+                //}
+                //catch (WebDriverException e)
+                //{
+                //    Console.WriteLine($"WebDriver error: {e.Message}");
+                //    results.Add($"{key}: WebDriver error.");
+                //}
+                // После успешной обработки ключа, обновляем lastProcessedKeyIndex
+                lastProcessedKeyIndex++;
+                // Thread.Sleep(200); // Для визуального контроля
             }
-            catch (NoSuchElementException e)
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Ошибка: {e.Message}");
+            // В блоке catch больше не нужно сохранять результаты и закрывать WebDriver
+        }
+        finally
+        {
+            // Сохраняем таблицу в файл и закрываем WebDriver в блоке finally
+            if (workbook != null)
             {
-                Console.WriteLine($"Element not found: {e.Message}");
-                results.Add($"{key}: Element not found.");
+                Console.WriteLine("Сохранение результатов...");
+                workbook.SaveAs(resultFilePath);
+                Console.WriteLine("Результаты сохранены в Excel файл.");
             }
-            catch (WebDriverException e)
+
+            if (driver != null)
             {
-                Console.WriteLine($"WebDriver error: {e.Message}");
-                results.Add($"{key}: WebDriver error.");
+                Console.WriteLine("Завершение работы браузера...");
+                driver.Quit();
             }
-            Thread.Sleep(1000); // Для визуального контроля
+
+            if (lastProcessedKeyIndex >= 0)
+            {
+                UpdateKeyFile(keyFilePath, lastProcessedKeyIndex);
+            }
         }
 
-        Console.WriteLine("Завершение работы браузера...");
-        driver.Quit();
-
-        Console.WriteLine("Сохранение результатов...");
-        File.WriteAllLines(resultFilePath, results);
-
-        // Сохраняем таблицу в файл
-        workbook.SaveAs(resultFilePath);
-
-        Console.WriteLine("Результаты сохранены в Excel файл.");
-
-        Console.WriteLine("Работа скрипта завершена.");
 
 
     }
@@ -284,6 +307,7 @@ class KeyAutomation
             @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
             // Добавьте дополнительные пути, если требуется
         };
+
 
         foreach (var path in possiblePaths)
         {
@@ -305,5 +329,15 @@ class KeyAutomation
 
         // Chrome не найден
         return null;
+    }
+
+    static void UpdateKeyFile(string keyFilePath, int lastProcessedKeyIndex)
+    {
+        var allKeys = File.ReadAllLines(keyFilePath).ToList();
+        if (lastProcessedKeyIndex > 0 && lastProcessedKeyIndex < allKeys.Count)
+        {
+            var remainingKeys = allKeys.Skip(lastProcessedKeyIndex + 1).ToList();
+            File.WriteAllLines(keyFilePath, remainingKeys);
+        }
     }
 }
