@@ -322,6 +322,8 @@ class KeyAutomation
             {
                 Console.WriteLine("Сохранение результатов...");
                 workbook.SaveAs(resultFilePath);
+                workbook.Dispose(); // Освобождаем ресурсы
+
                 Console.WriteLine("Результаты сохранены в Excel файл.");
             }
 
