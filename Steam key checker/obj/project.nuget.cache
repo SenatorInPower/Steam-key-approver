@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "U2pRwgMI2gscso43f3XSRGpQP/vkB7s7A0iZ9ug9gXTaSQQHckg3qs33X+wYlrSrhZoFL/t9HyT6gLs9MTgnNg==",
+  "dgSpecHash": "FtWtftpDbB90rdxh94Cs0lEp3NZ2WHy8Yr4mBudF3QMp2gy6MfU8Yir4s5cJm4mg3RYQ2ExWSKsTcT8pR+9Isg==",
   "success": true,
   "projectFilePath": "C:\\Users\\DELL\\Desktop\\ToolsMechaLearn\\Site\\Test Site\\Test steam\\Steam key checker\\Steam key checker.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\DELL\\.nuget\\packages\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\selenium.webdriver\\4.16.2\\selenium.webdriver.4.16.2.nupkg.sha512",
+    "C:\\Users\\DELL\\.nuget\\packages\\selenium.webdriver.chromedriver\\120.0.6099.10900\\selenium.webdriver.chromedriver.120.0.6099.10900.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\seleniumextras.waithelpers\\1.0.2\\seleniumextras.waithelpers.1.0.2.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\sixlabors.fonts\\1.0.0\\sixlabors.fonts.1.0.0.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",

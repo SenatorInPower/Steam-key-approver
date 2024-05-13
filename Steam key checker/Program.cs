@@ -41,6 +41,15 @@ class KeyAutomation
 
     static void Main()
     {
+        // Путь к файлу лога
+        string logFilePath = @"C:\Users\Admin11\Desktop\SteamKey\Steam-key-approver\Steam key checker\bin\Debug\net6.0\log.txt";
+
+        // Добавление слушателя, который будет записывать логи в указанный файл
+        Trace.Listeners.Add(new TextWriterTraceListener(logFilePath));
+
+        // Установка автоматического сброса буфера, чтобы записи лога немедленно выводились в файл
+        Trace.AutoFlush = true;
+
         Console.WriteLine("Начало работы скрипта...");
 
         // Получение пути к рабочему столу пользователя
@@ -49,6 +58,14 @@ class KeyAutomation
         // Определение путей к файлам на рабочем столе пользователя
         string keyFilePath = Path.Combine(desktopPath, "keys.txt");
         string resultFilePath = Path.Combine(desktopPath, "results.xlsx");
+
+        // Удаление файла результатов, если он уже существует
+        if (File.Exists(resultFilePath))
+        {
+            File.Delete(resultFilePath);
+            Console.WriteLine("Существующий файл результатов был удален.");
+        }
+
 
         // Get the full path of the current executable
         string exePath = Assembly.GetExecutingAssembly().Location;
@@ -59,7 +76,7 @@ class KeyAutomation
         // Check if the ChromeDriver file exists in the executable directory
         if (File.Exists(chromeDriverPath))
         {
-         //   Console.WriteLine("ChromeDriver found at: " + chromeDriverPath);
+            //   Console.WriteLine("ChromeDriver found at: " + chromeDriverPath);
             // Rest of your code that uses ChromeDriver...
         }
         else
@@ -67,8 +84,22 @@ class KeyAutomation
             Console.WriteLine("ChromeDriver not found in the executable directory.");
             // Handle the case where ChromeDriver is not found...
         }
-        // Поиск исполняемого файла Chrome
-        string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+        // Формирование нового пути к исполняемому файлу Chrome на основе пути к рабочему столу
+        string chromePath = Path.Combine(desktopPath, @"SteamKey\Steam-key-approver\Steam key checker\bin\Debug\net6.0\chrome-win64\chrome.exe");
+
+        if (!File.Exists(chromePath))
+        {
+            Console.WriteLine("Не удалось найти исполняемый файл Chrome.");
+            // Здесь может быть код для обработки случая, когда файл не найден
+        }
+        else
+        {
+            // Если файл найден, продолжить выполнение программы
+            Console.WriteLine($"Chrome найден по пути: {chromePath}");
+            // Здесь ваш код, который использует chromePath
+        }
+
+        //@"C:\Program Files\Google\Chrome\Application\chrome.exe";
         if (!File.Exists(chromePath))
         {
             chromePath = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
@@ -91,7 +122,8 @@ class KeyAutomation
 
         // Настройка и запуск WebDriver
         ChromeDriverService service = ChromeDriverService.CreateDefaultService(chromeDriverPath);
-
+        service.LogPath = "chromedriver.log";
+        service.EnableVerboseLogging = true;
         try
         {
             var chromeDriverVersionInfo = Process.Start(new ProcessStartInfo
@@ -109,9 +141,15 @@ class KeyAutomation
         {
             Console.WriteLine("Не удалось получить версию ChromeDriver: " + ex.Message);
         }
-
         ChromeOptions options = new ChromeOptions();
+        options.AddArgument("--disable-extensions");
+        options.AddArgument("--disable-gpu");
+        options.AddArgument("--no-sandbox");
+        options.AddArgument("--headless");
+
         options.DebuggerAddress = $"localhost:{debugPort}";
+
+
         IWebDriver driver = new ChromeDriver(service, options);
 
         WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
@@ -124,8 +162,17 @@ class KeyAutomation
         List<string> results = new List<string>();
 
         Console.WriteLine("Переключение на первую вкладку браузера...");
-        driver.SwitchTo().Window(driver.WindowHandles[0]);
-
+        try
+        {
+            Trace.WriteLine("Попытка переключения на первую вкладку браузера...");
+            driver.SwitchTo().Window(driver.WindowHandles[0]);
+            Trace.WriteLine("Успешно переключились на первую вкладку браузера.");
+        }
+        catch (Exception e)
+        {
+            Trace.WriteLine($"Ошибка при попытке переключения на окно: {e.Message}");
+            // Здесь можно добавить дополнительную логику обработки ошибки
+        }
 
         // Создаем новую книгу или загружаем существующую
         XLWorkbook workbook;

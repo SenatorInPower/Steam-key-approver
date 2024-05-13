@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[4.16.2, )"
             },
+            "Selenium.WebDriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[120.0.6099.10900, )"
+            },
             "SeleniumExtras.WaitHelpers": {
               "target": "Package",
               "version": "[1.0.2, )"

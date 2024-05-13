@@ -10,6 +10,7 @@
         "dependencies": {
           "ClosedXML": "0.102.2",
           "Selenium.WebDriver": "4.16.2",
+          "Selenium.WebDriver.ChromeDriver": "120.0.6099.10900",
           "SeleniumExtras.WaitHelpers": "1.0.2"
         },
         "runtime": {
@@ -192,6 +193,7 @@
           }
         }
       },
+      "Selenium.WebDriver.ChromeDriver/120.0.6099.10900": {},
       "SeleniumExtras.WaitHelpers/1.0.2": {
         "dependencies": {
           "Selenium.WebDriver": "4.16.2"
@@ -981,6 +983,13 @@
       "sha512": "sha512-5BI/v+LpPma+o5ijzy1jDqnbYBBu99UQYPhvZkSBnXY6PoDKLP//aMiX8XODNJHHcRwGXeaxKR61ISO6ejXExA==",
       "path": "selenium.webdriver/4.16.2",
       "hashPath": "selenium.webdriver.4.16.2.nupkg.sha512"
+    },
+    "Selenium.WebDriver.ChromeDriver/120.0.6099.10900": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wCOew6C9ABCRK59DdzdJyoQKmVQEUrVQEvoDQdhnLWpW1OkFKG5pd9EK6B3j2vcqdNTBNM6++tAOhBMFezHm3w==",
+      "path": "selenium.webdriver.chromedriver/120.0.6099.10900",
+      "hashPath": "selenium.webdriver.chromedriver.120.0.6099.10900.nupkg.sha512"
     },
     "SeleniumExtras.WaitHelpers/1.0.2": {
       "type": "package",
