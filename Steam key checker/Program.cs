@@ -11,6 +11,8 @@ using System.Reflection;
 
 class KeyAutomation
 {
+   
+
     public static int FindFreePort()
     {
         for (int port = 49152; port <= 65535; port++)
@@ -42,6 +44,7 @@ class KeyAutomation
 
     static void Main()
     {
+        int processedKeyCount = 0;
         // Путь к файлу лога
         string logFilePath = @"C:\Users\Admin11\Desktop\SteamKey\Steam-key-approver\Steam key checker\bin\Debug\net6.0\log.txt";
 
@@ -210,63 +213,102 @@ class KeyAutomation
 
             foreach (var key in keys)
             {
-
-                Console.WriteLine($"Обработка ключа: {key}");
-                driver.Navigate().GoToUrl(urlForAnalysis);
-                Console.WriteLine("Страница загружена.");
-
-                IWebElement inputElement = wait.Until(ExpectedConditions.ElementIsVisible(By.Name("cdkey")));
-                inputElement.Clear();
-                inputElement.SendKeys(key);
-
-                IWebElement sendButton = driver.FindElement(By.Name("method"));
-                sendButton.Click();
-                Console.WriteLine("Запрос отправлен.");
-
-                // Ожидаем появление статуса активации и получаем его текст
-                string activationStatus = wait.Until(d =>
+                int attempts = 3; // Количество попыток
+                while (attempts > 0)
                 {
-                    var element = d.FindElement(By.CssSelector("span[style='color: #e24044'], span[style='color: #67c1f5']"));
-                    return element.Displayed && element.Text.Length > 0 ? element.Text : null;
-                });
+                    try
+                    {
+                        Console.WriteLine($"Обработка ключа: {key}");
+                        driver.Navigate().GoToUrl(urlForAnalysis);
+                        Console.WriteLine("Страница загружена.");
 
-                // Получаем название игры и ID пакета из URL
-                string gameTitle = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[href*='packagelanding']"))).Text;
-                string packageId = driver.FindElement(By.CssSelector("a[href*='packagelanding']")).GetAttribute("href");
+                        IWebElement inputElement = wait.Until(ExpectedConditions.ElementIsVisible(By.Name("cdkey")));
+                        inputElement.Clear();
+                        inputElement.SendKeys(key);
 
-                // Получаем временную метку активации
-                string timeStamp = driver.FindElement(By.XPath("//td[contains(text(),'GMT')]")).Text;
+                        IWebElement sendButton = driver.FindElement(By.Name("method"));
+                        sendButton.Click();
+                        Console.WriteLine("Запрос отправлен.");
 
-                // Формируем результат
-                string result = $"{key}: {activationStatus}, {gameTitle}, {packageId}, {timeStamp}";
-                Console.WriteLine($"Результат: {result}");
-                results.Add(result);
+                        // Ожидаем появление статуса активации и получаем его текст
+                        string activationStatus = wait.Until(d =>
+                        {
+                            var element = d.FindElement(By.CssSelector("span[style='color: #e24044'], span[style='color: #67c1f5']"));
+                            return element.Displayed && element.Text.Length > 0 ? element.Text : null;
+                        });
 
-                // Записываем результаты в строку таблицы
-                worksheet.Cell(currentRow, 1).Value = key;
-                worksheet.Cell(currentRow, 2).Value = activationStatus;
-                worksheet.Cell(currentRow, 3).Value = timeStamp;
-                worksheet.Cell(currentRow, 4).Value = gameTitle;
-                worksheet.Cell(currentRow, 5).Value = packageId; // Или другой способ получения Tag
+                        // Получаем название игры и ID пакета из URL
+                        string gameTitle = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[href*='packagelanding']"))).Text;
+                        string packageId = driver.FindElement(By.CssSelector("a[href*='packagelanding']")).GetAttribute("href");
 
-                currentRow++;
+                        // Получаем временную метку активации
+                        string timeStamp = driver.FindElement(By.XPath("//td[contains(text(),'GMT')]")).Text;
+
+                        // Формируем результат
+                        string result = $"{key}: {activationStatus}, {gameTitle}, {packageId}, {timeStamp}";
+                        Console.WriteLine($"Результат: {result}");
+                        results.Add(result);
+
+                        // Записываем результаты в строку таблицы
+                        worksheet.Cell(currentRow, 1).Value = key;
+                        worksheet.Cell(currentRow, 2).Value = activationStatus;
+                        worksheet.Cell(currentRow, 3).Value = timeStamp;
+                        worksheet.Cell(currentRow, 4).Value = gameTitle;
+                        worksheet.Cell(currentRow, 5).Value = packageId; // Или другой способ получения Tag
+
+                        currentRow++;
+
+                        processedKeyCount++;
+
+                        // Проверяем, достигли ли мы 100 обработанных ключей
+                        if (processedKeyCount >= 100)
+                        {
+                            // Сохраняем таблицу в файл и очищаем результаты
+                            workbook.SaveAs(resultFilePath);
+                            results.Clear();
+
+                            // Обновляем файл с ключами
+                            UpdateKeyFile(keyFilePath, lastProcessedKeyIndex + 1);
+
+                            // Сбрасываем счетчик
+                            processedKeyCount = 0;
+                        }
 
 
 
-                //catch (NoSuchElementException e)
-                //{
-                //    Console.WriteLine($"Element not found: {e.Message}");
-                //    results.Add($"{key}: Element not found.");
-                //}
-                //catch (WebDriverException e)
-                //{
-                //    Console.WriteLine($"WebDriver error: {e.Message}");
-                //    results.Add($"{key}: WebDriver error.");
-                //}
-                // После успешной обработки ключа, обновляем lastProcessedKeyIndex
-                lastProcessedKeyIndex++;
-                // Thread.Sleep(200); // Для визуального контроля
+                        //catch (NoSuchElementException e)
+                        //{
+                        //    Console.WriteLine($"Element not found: {e.Message}");
+                        //    results.Add($"{key}: Element not found.");
+                        //}
+                        //catch (WebDriverException e)
+                        //{
+                        //    Console.WriteLine($"WebDriver error: {e.Message}");
+                        //    results.Add($"{key}: WebDriver error.");
+                        //}
+                        // После успешной обработки ключа, обновляем lastProcessedKeyIndex
+                        lastProcessedKeyIndex++;
+                        // Thread.Sleep(200); // Для визуального контроля
+                        // Если обработка прошла успешно, выходим из цикла
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Ошибка при обработке ключа {key}: {ex.Message}");
+                        attempts--;
+                        if (attempts == 0)
+                        {
+                            Console.WriteLine($"Попытки исчерпаны. Продолжение с следующим ключом.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Повторная попытка через 1 секунду...");
+                            Thread.Sleep(1000); // Задержка между попытками
+                        }
+                    }
+                }
             }
+
         }
         catch (Exception e)
         {
