@@ -1,0 +1,28 @@
+[1715613723.887][INFO]: Starting ChromeDriver 120.0.6099.109 (3419140ab665596f21b385ce136419fde0924272-refs/branch-heads/6099@{#1483}) on port 58446
+[1715613723.888][INFO]: Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+[1715613724.823][INFO]: [59bfe560c49ffc162ba1d2405e060e83] COMMAND InitSession {
+   "capabilities": {
+      "firstMatch": [ {
+         "browserName": "chrome",
+         "goog:chromeOptions": {
+            "args": [ "--disable-extensions", "--disable-gpu", "--no-sandbox" ],
+            "debuggerAddress": "localhost:9222"
+         }
+      } ]
+   }
+}
+[1715613724.826][DEBUG]: DevTools HTTP Request: http://localhost:9222/json/version
+[1715613725.273][DEBUG]: DevTools HTTP Response: {
+   "Browser": "Chrome/124.0.6367.158",
+   "Protocol-Version": "1.3",
+   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+   "V8-Version": "12.4.254.15",
+   "WebKit-Version": "537.36 (@953cfe4b1b3504ce4c1c2a5054dfdabf2747237a)",
+   "webSocketDebuggerUrl": "ws://localhost:9222/devtools/browser/a48a6989-0b48-4749-afd5-cd26b8aafa55"
+}
+
+[1715613725.309][INFO]: [59bfe560c49ffc162ba1d2405e060e83] RESPONSE InitSession ERROR unknown error: cannot connect to chrome at localhost:9222
+from session not created: This version of ChromeDriver only supports Chrome version 120
+Current browser version is 124.0.6367.158
+[1715613725.309][DEBUG]: Log type 'driver' lost 0 entries on destruction
+[1715613725.309][DEBUG]: Log type 'browser' lost 0 entries on destruction

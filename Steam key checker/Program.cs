@@ -42,11 +42,11 @@ class KeyAutomation
 
     static void Main()
     {
-        // Путь к файлу лога
-        string logFilePath = @"C:\Users\Admin11\Desktop\SteamKey\Steam-key-approver\Steam key checker\bin\Debug\net6.0\log.txt";
+        int processedKeyCount = 0;
 
-        // Добавление слушателя, который будет записывать логи в указанный файл
-        Trace.Listeners.Add(new TextWriterTraceListener(logFilePath));
+      
+
+      
 
         // Установка автоматического сброса буфера, чтобы записи лога немедленно выводились в файл
         Trace.AutoFlush = true;
@@ -55,6 +55,12 @@ class KeyAutomation
 
         // Получение пути к рабочему столу пользователя
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        // Путь к файлу лога
+        string logFilePath = $@"{desktopPath}\SteamKey\Steam-key-approver\Steam key checker\bin\Debug\net6.0\log.txt";
+
+        // Добавление слушателя, который будет записывать логи в указанный файл
+        Trace.Listeners.Add(new TextWriterTraceListener(logFilePath));
 
         // Определение путей к файлам на рабочем столе пользователя
         string keyFilePath = Path.Combine(desktopPath, "keys.txt");
@@ -251,7 +257,23 @@ class KeyAutomation
 
                 currentRow++;
 
+                processedKeyCount++;
 
+                // Проверяем, достигли ли мы 100 обработанных ключей
+                if (processedKeyCount >= 30)
+                {
+                    // Сохраняем таблицу в файл и очищаем результаты
+                    workbook.SaveAs(resultFilePath);
+                    results.Clear();
+                    Console.WriteLine($"Таблица сохранена после {processedKeyCount} запросов");
+
+                    // Обновляем файл с ключами
+                    UpdateKeyFile(keyFilePath, lastProcessedKeyIndex + 1);
+
+                    // Сбрасываем счетчик
+                    processedKeyCount = 0;
+                }
+             
 
                 //catch (NoSuchElementException e)
                 //{
